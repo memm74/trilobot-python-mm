@@ -190,7 +190,7 @@ class SimpleController():
                     raise ValueError("A button with the name '" + alt_name + "' is already registered. Use a different alt_name")
                 if alt_name == button.alt_name:
                     raise ValueError("A button with the alt_name '" + alt_name + "' is already registered. Use a different alt_name")
-        self.buttons.append(Button(name, ev_code, alt_name, ecodes.EV_ABS, pressed_value, released_value, pressed_callback, released_callback))
+        self.buttons.append(Button(name, alt_name, ev_code, ecodes.EV_ABS, pressed_value, released_value, pressed_callback, released_callback))
 
     def register_axis(self, name, ev_code, min_value=-1, max_value=1, deadzone_percent=0.0, changed_callback=None, alt_name=None):
         """ Registers an axis with this controller.
