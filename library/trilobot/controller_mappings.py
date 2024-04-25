@@ -1,6 +1,44 @@
 from trilobot.simple_controller import SimpleController
 
 
+def create_gioteck_smart_duo_controller(stick_deadzone_percent=0.2):
+    controller = SimpleController("SZMY-POWER CO.,LTD. GamePad")
+
+    # Button and axis registrations for Gioteck TV+ Smart Duo controller
+    # used with 2.4GHz dongle.
+    # https://www.gioteck.com/products/smart-tv-duo-controller-gaming-pc-mobile-white
+    controller.register_button("A", 304, alt_name="Cross")
+    controller.register_button("B", 305, alt_name="Circle")
+    controller.register_button("X", 307, alt_name="Square")
+    controller.register_button("Y", 308, alt_name="Triangle")
+
+    controller.register_button("Start", 315)
+    controller.register_button("Select", 314)
+    controller.register_button("Home", 172)
+
+    controller.register_button("LB", 310, alt_name="L1")
+    controller.register_axis_as_button("LT", 10, 255, 0, alt_name="L2")
+    controller.register_button("RB", 311, alt_name="R1")
+    controller.register_axis_as_button("RT", 9, 255, 0, alt_name="R2")
+
+    controller.register_axis_as_button("Left", 16, -1, 0)
+    controller.register_axis_as_button("Right", 16, 1, 0)
+    controller.register_axis_as_button("Up", 17, -1, 0)
+    controller.register_axis_as_button("Down", 17, 1, 0)
+
+    controller.register_button("LS", 317, alt_name="L3")
+    controller.register_button("RS", 318, alt_name="R3")
+
+    controller.register_axis("LX", 0, 0, 255, deadzone_percent=stick_deadzone_percent)
+    controller.register_axis("LY", 1, 0, 255, deadzone_percent=stick_deadzone_percent)
+    controller.register_axis("RX", 2, 0, 255, deadzone_percent=stick_deadzone_percent)
+    controller.register_axis("RY", 5, 0, 255, deadzone_percent=stick_deadzone_percent)
+
+    controller.register_trigger_axis("LT", 10, 0, 255, alt_name="L2")
+    controller.register_trigger_axis("RT", 9, 0, 255, alt_name="R2")
+    return controller
+
+
 def create_8bitdo_lite_controller():
     """ Create a controller class for the 8BitDo Lite controller.
     """
@@ -332,6 +370,7 @@ def choose_controller():
                        ("PS4 Controller - Motion Sensors", create_ps4_wireless_controller_motion),
                        ("DualSense Wireless Controller", create_ps5_wireless_controller),
                        ("DualSense Wireless Controller Motion Sensors", create_ps5_wireless_controller_motion),
+                       ("Gioteck Smart TV+ Duo Controller", create_gioteck_smart_duo_controller),
                        ]
 
     print("Currently supported controllers:")
