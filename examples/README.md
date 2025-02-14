@@ -76,6 +76,10 @@ A demonstration of Trilobot's ultrasound sensor that has it keep an object a goa
 
 Further demonstrating Trilobot's ultrasound distance sensor, this example will drive forward and then turn right to avoid obstacles it detects them with the sensor.
 
+### Avoid Walls Random
+[avoid_walls_random.py](avoid_walls_random.py)
+
+This example will drive forward and then randomly turn right or left to avoid obstacles it detects them with the sensor.
 
 ## Lighting Examples
 
