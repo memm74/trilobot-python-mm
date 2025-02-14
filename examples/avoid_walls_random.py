@@ -2,6 +2,7 @@
 
 from trilobot import Trilobot, BUTTON_A
 import random
+import time
 
 """
 Further demonstrating Trilobot's ultrasound distance sensor, this example will drive
@@ -17,18 +18,32 @@ TURN_DISTANCE = 30  # How close a wall needs to be, in cm, before we start turni
 
 tbot = Trilobot()
 
+direction = ['left', 'right']
+turn_direction = random.choice(direction)
+attempts = 0
+
 # Start moving forward
 tbot.forward(SPEED)
 
 while not tbot.read_button(BUTTON_A):
     distance = tbot.read_distance()
 
-    # Turn if we are too closer than the turn distance
+    # Turn if closer than the turn distance
     if distance < TURN_DISTANCE:
-        if random.choice([True, False]): # Randomly turn left or right, shorter code than using a random element from a list e.g. direction = ['left', 'right'] 
-            tbot.turn_right(SPEED)
-        else:
+        tbot.backward(SPEED)  # Drive backward
+        time.sleep(0.)  # Sleep to move back a bit
+
+        #stick with the direction decision to avoid oscillation
+        if attempts == 0:
+            turn_direction = random.choice(direction)
+            attempts = 10
+
+        if turn_direction == 'left':
             tbot.turn_left(SPEED)
+        else:
+            tbot.turn_right(SPEED)
+
+        attempts -= 1
     else:
         tbot.forward(SPEED)
     # No sleep is needed, as distance sensor provides sleep
